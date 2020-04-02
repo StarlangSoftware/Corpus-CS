@@ -6,7 +6,7 @@ namespace Corpus
     {
 
         /**
-         * The isValidWord method takes an input String as a word than define all valid characters as a validCharacters String which has
+         * <summary>The isValidWord method takes an input String as a word than define all valid characters as a validCharacters String which has
          * letters (abcçdefgğhıijklmnoöprsştuüvyzABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ),
          * extended language characters (âàáäãèéêëíîòóôûúqwxÂÈÉÊËÌÒÛQWX),
          * digits (0123456789),
@@ -16,9 +16,9 @@ namespace Corpus
          * punctuation chars (,:;),
          * special-meaning chars
          * Then, loops through input word's each char and if a char in word does not in the validCharacters string it returns
-         * false, true otherwise.
-         * @param word String to check validity.
-         * @return true if each char in word is valid, false otherwise.
+         * false, true otherwise.</summary>
+         * <param name="word">String to check validity.</param>
+         * <returns>true if each char in word is valid, false otherwise.</returns>
          */
         public bool IsValidWord(string word)
         {
