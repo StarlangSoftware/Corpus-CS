@@ -7,10 +7,10 @@ namespace Corpus
 {
     public class Corpus
     {
-        protected readonly List<Paragraph> paragraphs;
-        protected readonly List<Sentence> sentences;
-        protected readonly CounterHashMap<Word> wordList;
-        protected readonly string fileName;
+        protected List<Paragraph> paragraphs;
+        protected List<Sentence> sentences;
+        protected CounterHashMap<Word> wordList;
+        protected string fileName;
 
         /**
          * <summary>A constructor of {@link Corpus} class which creates new {@link ArrayList} for sentences and a {@link CounterHashMap}
