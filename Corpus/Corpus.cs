@@ -7,10 +7,10 @@ namespace Corpus
 {
     public class Corpus
     {
-        protected List<Paragraph> paragraphs;
-        protected List<Sentence> sentences;
-        protected CounterHashMap<Word> wordList;
-        protected string fileName;
+        protected readonly List<Paragraph> paragraphs;
+        protected readonly List<Sentence> sentences;
+        protected readonly CounterHashMap<Word> wordList;
+        protected readonly string fileName;
 
         /**
          * <summary>A constructor of {@link Corpus} class which creates new {@link ArrayList} for sentences and a {@link CounterHashMap}
@@ -39,7 +39,7 @@ namespace Corpus
          *
          * <param name="fileName">String file name input that will be read.</param>
          */
-        public Corpus(string fileName)
+        public Corpus(string fileName) : this()
         {
             this.fileName = fileName;
             var streamReader = new StreamReader(fileName);
@@ -59,7 +59,7 @@ namespace Corpus
          * <param name="fileName">        String file name input that will be read.</param>
          * <param name="sentenceSplitter">{@link SentenceSplitter} type input.</param>
          */
-        public Corpus(string fileName, SentenceSplitter sentenceSplitter)
+        public Corpus(string fileName, SentenceSplitter sentenceSplitter) : this()
         {
             List<Sentence> sentences;
             var streamReader = new StreamReader(fileName);
@@ -86,7 +86,7 @@ namespace Corpus
          * <param name="fileName">       String file name input that will be read.</param>
          * <param name="languageChecker">{@link LanguageChecker} type input.</param>
          */
-        public Corpus(string fileName, LanguageChecker languageChecker) : base()
+        public Corpus(string fileName, LanguageChecker languageChecker) : this()
         {
             var streamReader = new StreamReader(fileName);
             var line = streamReader.ReadLine();
@@ -261,8 +261,8 @@ namespace Corpus
             var maxLength = 0;
             foreach (var s in sentences)
             {
-                if (s.WordCount() + 1 > maxLength)
-                    maxLength = s.WordCount() + 1;
+                if (s.WordCount() > maxLength)
+                    maxLength = s.WordCount();
             }
 
             return maxLength;

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <PackageId>NlpToolkit-Corpus</PackageId>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageVersion>1.0.2</PackageVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="NlpToolkit-DataStructure" Version="1.0.1" />
+      <PackageReference Include="NlpToolkit-Dictionary" Version="1.0.5" />
+    </ItemGroup>
+
+</Project>
