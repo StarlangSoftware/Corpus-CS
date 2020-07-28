@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using DataStructure;
 using Dictionary.Dictionary;
+using Sampling;
 
 namespace Corpus
 {
@@ -309,6 +311,7 @@ namespace Corpus
          */
         public void ShuffleSentences(int seed)
         {
+            KFoldCrossValidation<Sentence>.Shuffle(sentences, new Random(seed));
         }
 
         /**
