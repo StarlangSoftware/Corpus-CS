@@ -52,7 +52,7 @@ Detailed Description
 
 To store a corpus in memory
 
-	a = Corpus("derlem.txt");
+	a = new Corpus("derlem.txt");
 
 If this corpus is split with dots but not in sentences
 
