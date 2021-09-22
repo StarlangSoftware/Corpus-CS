@@ -205,6 +205,18 @@ namespace Corpus
         }
 
         /**
+         * <summary>The InsertWord method takes an index and a word as inputs. It adds the word to the given index in
+         * words {@link ArrayList}.</summary>
+         *
+         * <param name="i">      index.</param>
+         * <param name="newWord">to add the words {@link ArrayList}.</param>
+         */
+        public void InsertWord(int i, Word newWord)
+        {
+            words.Insert(i, newWord);
+        }
+
+        /**
          * <summary>The replaceWord method takes an index and a word as inputs. It removes the word at given index from words
          * {@link ArrayList} and then adds the given word to given index of words.</summary>
          *
