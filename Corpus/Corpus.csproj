@@ -4,13 +4,13 @@
         <TargetFramework>netcoreapp2.2</TargetFramework>
         <PackageId>NlpToolkit-Corpus</PackageId>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>1.0.7</PackageVersion>
+        <PackageVersion>1.0.8</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="NlpToolkit-DataStructure" Version="1.0.1" />
-      <PackageReference Include="NlpToolkit-Dictionary" Version="1.0.10" />
-      <PackageReference Include="NlpToolkit-Sampling" Version="1.0.2" />
+      <PackageReference Include="NlpToolkit-DataStructure" Version="1.0.2" />
+      <PackageReference Include="NlpToolkit-Dictionary" Version="1.0.11" />
+      <PackageReference Include="NlpToolkit-Sampling" Version="1.0.3" />
     </ItemGroup>
 
 </Project>
