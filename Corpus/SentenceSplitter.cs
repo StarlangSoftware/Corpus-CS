@@ -199,7 +199,7 @@ namespace Corpus
         {
             var apostropheLetters = UpperCaseLetters() + LowerCaseLetters() + Language.EXTENDED_LANGUAGE_CHARACTERS +
                                     Language.DIGITS;
-            if (i + 1 < line.Length)
+            if (i > 0 && i + 1 < line.Length)
             {
                 var previousChar = line[i - 1];
                 var nextChar = line[i + 1];
@@ -220,7 +220,7 @@ namespace Corpus
          */
         private bool NumberExistsBeforeAndAfter(string line, int i)
         {
-            if (i + 1 < line.Length && i > 0)
+            if (i > 0 && i + 1 < line.Length)
             {
                 var previousChar = line[i - 1];
                 var nextChar = line[i + 1];
@@ -241,11 +241,11 @@ namespace Corpus
          */
         private bool IsTime(string line, int i)
         {
-            if (i + 2 < line.Length)
+            if (i > 0 && i + 2 < line.Length)
             {
-                char previousChar = line[i - 1];
-                char nextChar = line[i + 1];
-                char twoNextChar = line[i + 2];
+                var previousChar = line[i - 1];
+                var nextChar = line[i + 1];
+                var twoNextChar = line[i + 2];
                 return Contains(Language.DIGITS, previousChar) && Contains(Language.DIGITS, nextChar) &&
                        Contains(Language.DIGITS, twoNextChar);
             }
