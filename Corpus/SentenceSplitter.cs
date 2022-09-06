@@ -8,9 +8,9 @@ namespace Corpus
 {
     public abstract class SentenceSplitter
     {
-        public static string SEPARATORS = "\n()[]{}\"'\u05F4\uFF02\u055B";
+        public static string SEPARATORS = "\n()[]{}\"'\u05F4\uFF02\u055B’”‘“–\u00AD\u200B\t&\u2009\u202F\uFEFF";
         public static string SENTENCE_ENDERS = ".?!…";
-        public static string PUNCTUATION_CHARACTERS = ",:;";
+        public static string PUNCTUATION_CHARACTERS = ",:;‚";
 
         protected abstract string UpperCaseLetters();
         protected abstract string LowerCaseLetters();
@@ -336,6 +336,18 @@ namespace Corpus
                             case '\u05F4':
                                 specialQuotaCount--;
                                 break;
+                            case '“':
+                                specialQuotaCount++;
+                                break;
+                            case '”':
+                                specialQuotaCount--;
+                                break;
+                            case '‘':
+                                specialQuotaCount++;
+                                break;
+                            case '’':
+                                specialQuotaCount--;
+                                break;
                             case '(':
                                 roundParenthesisCount++;
                                 break;
@@ -378,6 +390,8 @@ namespace Corpus
                             (webMode || emailMode || (Contains(Language.DIGITS, line[i - 1]) && !IsNextCharUpperCaseOrDigit(line, i + 1))))
                         {
                             currentWord = currentWord + line[i];
+                            currentSentence.AddWord(new Word(currentWord));
+                            currentWord = "";
                         }
                         else
                         {
