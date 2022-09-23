@@ -65,5 +65,12 @@ namespace Test
             Assert.AreEqual(8, splitter.Split("Burada II. Murat ve I. Ahmet oyun oynadı")[0].WordCount());
         }
 
+        [Test]
+        public void TestSplit7()
+        {
+            Assert.AreEqual(1, splitter.Split("1.87 cm boyunda ve 84 kg ağırlığındaydı").Count);
+            Assert.AreEqual(7, splitter.Split("1.87 cm boyunda ve 84 kg ağırlığındaydı")[0].WordCount());
+        }
+
     }
 }

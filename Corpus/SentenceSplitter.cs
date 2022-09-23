@@ -11,11 +11,12 @@ namespace Corpus
         public static string SEPARATORS = "\n()[]{}\"'\u05F4\uFF02\u055B’”‘“–\u00AD\u200B\t&\u2009\u202F\uFEFF";
         public static string SENTENCE_ENDERS = ".?!…";
         public static string PUNCTUATION_CHARACTERS = ",:;‚";
+        public static string APOSTROPHES = "'’‘\u055B";
 
         protected abstract string UpperCaseLetters();
         protected abstract string LowerCaseLetters();
         protected abstract string[] ShortCuts();
-        
+
         /**
          * The Contains method takes a String and a char input then check the given String Contains the given char.
          *
@@ -306,7 +307,7 @@ namespace Corpus
             {
                 if (Contains(SEPARATORS, line[i]))
                 {
-                    if (line[i] == '\'' && currentWord != "" && IsApostrophe(line, i))
+                    if (Contains(APOSTROPHES, line[i]) && currentWord != "" && IsApostrophe(line, i))
                     {
                         currentWord = currentWord + line[i];
                     }
@@ -321,6 +322,7 @@ namespace Corpus
                         {
                             currentSentence.AddWord(new Word("" + line[i]));
                         }
+
                         currentWord = "";
                         switch (line[i])
                         {
@@ -387,7 +389,8 @@ namespace Corpus
                         }
 
                         if (line[i] == '.' && currentWord != "" &&
-                            (webMode || emailMode || (Contains(Language.DIGITS, line[i - 1]) && !IsNextCharUpperCaseOrDigit(line, i + 1))))
+                            (webMode || emailMode || (Contains(Language.DIGITS, line[i - 1]) &&
+                                                      !IsNextCharUpperCaseOrDigit(line, i + 1))))
                         {
                             currentWord = currentWord + line[i];
                             currentSentence.AddWord(new Word(currentWord));
@@ -403,53 +406,60 @@ namespace Corpus
                             }
                             else
                             {
-                                if (currentWord != "")
+                                if (line[i] == '.' && NumberExistsBeforeAndAfter(line, i))
                                 {
-                                    currentSentence.AddWord(new Word(RepeatControl(currentWord, webMode || emailMode)));
+                                    currentWord = currentWord + line[i];
                                 }
-
-                                currentWord = "" + line[i];
-                                do
+                                else
                                 {
-                                    i++;
-                                } while (i < line.Length && Contains(SENTENCE_ENDERS, line[i]));
-
-                                i--;
-                                currentSentence.AddWord(new Word(currentWord));
-                                if (roundParenthesisCount == 0 && bracketCount == 0 && curlyBracketCount == 0 &&
-                                    quotaCount == 0)
-                                {
-                                    if (i + 1 < line.Length && line[i + 1] == '\'' && apostropheCount == 1 &&
-                                        IsNextCharUpperCaseOrDigit(line, i + 2))
+                                    if (currentWord != "")
                                     {
-                                        currentSentence.AddWord(new Word("'"));
-                                        i++;
-                                        sentences.Add(currentSentence);
-                                        currentSentence = new Sentence();
+                                        currentSentence.AddWord(new Word(RepeatControl(currentWord,
+                                            webMode || emailMode)));
                                     }
-                                    else
+
+                                    currentWord = "" + line[i];
+                                    do
                                     {
-                                        if (i + 2 < line.Length && line[i + 1] == ' ' &&
-                                            line[i + 2] == '\'' && apostropheCount == 1 &&
-                                            IsNextCharUpperCaseOrDigit(line, i + 3))
+                                        i++;
+                                    } while (i < line.Length && Contains(SENTENCE_ENDERS, line[i]));
+
+                                    i--;
+                                    currentSentence.AddWord(new Word(currentWord));
+                                    if (roundParenthesisCount == 0 && bracketCount == 0 && curlyBracketCount == 0 &&
+                                        quotaCount == 0)
+                                    {
+                                        if (i + 1 < line.Length && line[i + 1] == '\'' && apostropheCount == 1 &&
+                                            IsNextCharUpperCaseOrDigit(line, i + 2))
                                         {
                                             currentSentence.AddWord(new Word("'"));
-                                            i += 2;
+                                            i++;
                                             sentences.Add(currentSentence);
                                             currentSentence = new Sentence();
                                         }
                                         else
                                         {
-                                            if (IsNextCharUpperCaseOrDigit(line, i + 1))
+                                            if (i + 2 < line.Length && line[i + 1] == ' ' &&
+                                                line[i + 2] == '\'' && apostropheCount == 1 &&
+                                                IsNextCharUpperCaseOrDigit(line, i + 3))
                                             {
+                                                currentSentence.AddWord(new Word("'"));
+                                                i += 2;
                                                 sentences.Add(currentSentence);
                                                 currentSentence = new Sentence();
                                             }
+                                            else
+                                            {
+                                                if (IsNextCharUpperCaseOrDigit(line, i + 1))
+                                                {
+                                                    sentences.Add(currentSentence);
+                                                    currentSentence = new Sentence();
+                                                }
+                                            }
                                         }
                                     }
+                                    currentWord = "";
                                 }
-
-                                currentWord = "";
                             }
                         }
                     }
@@ -500,7 +510,8 @@ namespace Corpus
                                     Contains(Language.ARITHMETIC_CHARACTERS, line[i]))
                                 {
                                     if (line[i] == ':' &&
-                                        (currentWord.Equals("http", StringComparison.OrdinalIgnoreCase) || currentWord.Equals("https", StringComparison.OrdinalIgnoreCase)))
+                                        (currentWord.Equals("http", StringComparison.OrdinalIgnoreCase) ||
+                                         currentWord.Equals("https", StringComparison.OrdinalIgnoreCase)))
                                     {
                                         webMode = true;
                                     }
