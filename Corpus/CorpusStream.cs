@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Corpus
 {
-    public class CorpusStream
+    public class CorpusStream : AbstractCorpus
     {
         private StreamReader _reader;
         private string _fileName;
@@ -13,17 +13,17 @@ namespace Corpus
             _fileName = fileName;
         }
 
-        public void Open()
+        public override void Open()
         {
             _reader = new StreamReader(_fileName);
         }
 
-        public void Close()
+        public override void Close()
         {
             _reader.Close();
         }
 
-        public Sentence GetSentence()
+        public override Sentence GetSentence()
         {
             var line = _reader.ReadLine();
             if (line != null)

@@ -7,12 +7,12 @@ using Sampling;
 
 namespace Corpus
 {
-    public class Corpus
+    public class Corpus : AbstractCorpus
     {
         protected List<Paragraph> paragraphs;
         protected List<Sentence> sentences;
         protected CounterHashMap<Word> wordList;
-        protected string fileName;
+        private int _sentenceIndex;
 
         /**
          * <summary>A constructor of {@link Corpus} class which creates new {@link ArrayList} for sentences and a {@link CounterHashMap}
@@ -380,5 +380,24 @@ namespace Corpus
             streamWriter.Close();
         }
 
+        public override void Open()
+        {
+            _sentenceIndex = 0;
+        }
+
+        public override void Close()
+        {
+            _sentenceIndex = 0;
+        }
+
+        public override Sentence GetSentence()
+        {
+            int index = _sentenceIndex;
+            if (_sentenceIndex < sentences.Count){
+                _sentenceIndex++;
+                return sentences[index];
+            }
+            return null;
+        }
     }
 }
