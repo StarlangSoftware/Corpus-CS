@@ -380,16 +380,27 @@ namespace Corpus
             streamWriter.Close();
         }
 
+        /// <summary>
+        /// Implements open method in AbstractCorpus. Initializes sentence pointer to zero.
+        /// </summary>
         public override void Open()
         {
             _sentenceIndex = 0;
         }
 
+        /// <summary>
+        /// Implements close method in AbstractCorpus. Initializes sentence pointer to zero.
+        /// </summary>
         public override void Close()
         {
             _sentenceIndex = 0;
         }
 
+        /// <summary>
+        /// Implements getSentence method in AbstractCorpus. Returns next sentence in the sentences array list and increments
+        /// sentence pointer. If there are no sentences to be read, returns null.
+        /// </summary>
+        /// <returns>Next sentence in the sentences array.</returns>
         public override Sentence GetSentence()
         {
             int index = _sentenceIndex;

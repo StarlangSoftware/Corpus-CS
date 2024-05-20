@@ -8,14 +8,26 @@ namespace Corpus
 {
     public class TurkishSplitter : SentenceSplitter
     {
+        /// <summary>
+        /// Returns Turkish UPPERCASE letters.
+        /// </summary>
+        /// <returns>Turkish UPPERCASE letters.</returns>
         protected override string UpperCaseLetters() {
             return TurkishLanguage.UPPERCASE_LETTERS;
         }
 
+        /// <summary>
+        /// Returns Turkish lowercase letters.
+        /// </summary>
+        /// <returns>Turkish lowercase letters.</returns>
         protected override string LowerCaseLetters() {
             return TurkishLanguage.LOWERCASE_LETTERS;
         }
 
+        /// <summary>
+        /// Returns shortcut words in Turkish language.
+        /// </summary>
+        /// <returns>Shortcut words in Turkish language.</returns>
         protected override string[] ShortCuts() {
             return new string[]{"alb", "bnb", "bkz", "bşk", "co", "dr", "dç", "der", "em", "gn",
                 "hz", "kd", "kur", "kuv", "ltd", "md", "mr", "mö", "muh", "müh",
